@@ -1,0 +1,14 @@
+{
+  "translation": {
+    "errors": {
+      "internal_server_error": "Internal Server Error"
+    },
+    "chat": {
+      "open_chat": "Open Chat",
+      "close_chat": "Close Chat",
+      "live_chat": "Live Chat",
+      "send_message": "Send",
+      "type_your_message": "Type your message..."
+    }
+  }
+}
