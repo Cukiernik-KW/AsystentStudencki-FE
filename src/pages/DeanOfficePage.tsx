@@ -1,5 +1,7 @@
 import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
+import { ApiError } from "../lib/api";
+import { sendDeanOfficeMessage } from "../lib/api/deanOfficeApi";
 import { useAuthStore } from "../zustand/authStore";
 
 type FormState = {
@@ -16,10 +18,24 @@ const initialFormState: FormState = {
   message: "",
 };
 
+const getErrorMessage = (error: unknown) => {
+  if (error instanceof ApiError) {
+    return error.message;
+  }
+
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+
+  return "Nie udalo sie wyslac wiadomosci. Sprobuj ponownie.";
+};
+
 export default function DeanOfficePage() {
   const userEmail = useAuthStore((state) => state.user?.email ?? "");
   const [formState, setFormState] = useState<FormState>(initialFormState);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     setFormState((current) => ({
@@ -30,19 +46,38 @@ export default function DeanOfficePage() {
 
   const updateField = (field: keyof FormState, value: string) => {
     setIsSubmitted(false);
+    setErrorMessage(null);
     setFormState((current) => ({
       ...current,
       [field]: value,
     }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsSubmitted(true);
-    setFormState({
-      ...initialFormState,
-      email: userEmail,
-    });
+
+    setIsSubmitting(true);
+    setIsSubmitted(false);
+    setErrorMessage(null);
+
+    try {
+      await sendDeanOfficeMessage({
+        name: formState.name.trim(),
+        email: formState.email.trim(),
+        topic: formState.topic.trim(),
+        message: formState.message.trim(),
+      });
+
+      setIsSubmitted(true);
+      setFormState({
+        ...initialFormState,
+        email: userEmail,
+      });
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -100,6 +135,7 @@ export default function DeanOfficePage() {
               onChange={(event) => updateField("name", event.target.value)}
               className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-blue-500"
               placeholder="Jan Kowalski"
+              disabled={isSubmitting}
               required
             />
           </div>
@@ -115,6 +151,7 @@ export default function DeanOfficePage() {
               onChange={(event) => updateField("email", event.target.value)}
               className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-blue-500"
               placeholder="student@uczelnia.pl"
+              disabled={isSubmitting}
               required
             />
           </div>
@@ -130,6 +167,7 @@ export default function DeanOfficePage() {
               onChange={(event) => updateField("topic", event.target.value)}
               className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-blue-500"
               placeholder="Np. prosba o zaswiadczenie"
+              disabled={isSubmitting}
               required
             />
           </div>
@@ -144,22 +182,29 @@ export default function DeanOfficePage() {
               onChange={(event) => updateField("message", event.target.value)}
               className="min-h-40 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-blue-500"
               placeholder="Opisz swoja sprawe."
+              disabled={isSubmitting}
               required
             />
           </div>
 
+          {errorMessage ? (
+            <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+              {errorMessage}
+            </p>
+          ) : null}
+
           {isSubmitted ? (
             <p className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-              Formularz zostal wypelniony. Aby wysylac wiadomosci, trzeba jeszcze podlaczyc
-              endpoint backendowy lub obsluge e-mail.
+              Wiadomosc zostala wyslana do dziekanatu.
             </p>
           ) : null}
 
           <button
             type="submit"
-            className="w-full rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+            disabled={isSubmitting}
+            className="w-full rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
           >
-            Wyslij wiadomosc
+            {isSubmitting ? "Wysylanie..." : "Wyslij wiadomosc"}
           </button>
         </form>
       </aside>
