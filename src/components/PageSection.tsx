@@ -24,7 +24,7 @@ export default function PageSection({ pageId }: PageSectionProps) {
 
         <div className="rounded-[1.5rem] border border-blue-100 bg-blue-50 p-6">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">
-            Szybki podglad
+            Szybki podgląd
           </p>
           <ul className="mt-4 space-y-3 text-sm text-slate-700">
             {currentPage.highlights.map((item) => (
@@ -44,10 +44,10 @@ export default function PageSection({ pageId }: PageSectionProps) {
               to={item.path}
               className="rounded-[1.5rem] border border-slate-200 bg-white p-5 text-left shadow-sm shadow-slate-200/70 transition hover:-translate-y-1 hover:border-blue-300 hover:bg-blue-50"
             >
-              <p className="text-xs uppercase tracking-[0.3em] text-blue-600">Przejdz do</p>
+              <p className="text-xs uppercase tracking-[0.3em] text-blue-600">Przejdź do</p>
               <h2 className="mt-3 text-xl font-semibold text-slate-900">{item.label}</h2>
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                Otworz podstrone i uzupelnij ja o docelowe tresci.
+                Otwórz podstronę i uzupełnij ją o docelowe treści.
               </p>
             </Link>
           ))}

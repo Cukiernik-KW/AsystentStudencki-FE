@@ -15,7 +15,7 @@ const getErrorMessage = (error: unknown) => {
     return error.message;
   }
 
-  return "Nie udalo sie zalogowac.";
+  return "Nie udało się zalogować.";
 };
 
 export default function LoginPage() {
@@ -36,12 +36,12 @@ export default function LoginPage() {
     event.preventDefault();
 
     if (!emailPattern.test(email)) {
-      setErrorMessage("Podaj poprawny adres email.");
+      setErrorMessage("Podaj poprawny adres e-mail.");
       return;
     }
 
     if (password.length < 6) {
-      setErrorMessage("Haslo musi miec co najmniej 6 znakow.");
+      setErrorMessage("Hasło musi mieć co najmniej 6 znaków.");
       return;
     }
 
@@ -66,10 +66,10 @@ export default function LoginPage() {
               </p>
               <div className="space-y-4">
                 <h1 className="text-4xl font-semibold tracking-tight text-slate-900">
-                  Zaloguj sie do panelu studenta
+                  Zaloguj się do panelu studenta
                 </h1>
                 <p className="max-w-lg text-base leading-7 text-slate-600">
-                  Sesja jest utrzymywana przez backend w HttpOnly cookie. Po odswiezeniu
+                  Sesja jest utrzymywana przez backend w HttpOnly cookie. Po odświeżeniu
                   aplikacja odtworzy stan przez endpoint me.
                 </p>
               </div>
@@ -80,7 +80,7 @@ export default function LoginPage() {
                 Chronione widoki
               </div>
               <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4">
-                Automatyczne odswiezanie sesji
+                Automatyczne odświeżanie sesji
               </div>
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function LoginPage() {
 
               <div className="space-y-2">
                 <label className="text-sm font-medium" htmlFor="login-password">
-                  Haslo
+                  Hasło
                 </label>
                 <input
                   id="login-password"
@@ -114,7 +114,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-blue-500"
-                  placeholder="Minimum 6 znakow"
+                  placeholder="Minimum 6 znaków"
                   disabled={isAuthLoading}
                 />
               </div>
@@ -130,14 +130,14 @@ export default function LoginPage() {
                 disabled={isAuthLoading}
                 className="w-full rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
               >
-                {isAuthLoading ? "Logowanie..." : "Zaloguj sie"}
+                {isAuthLoading ? "Logowanie..." : "Zaloguj się"}
               </button>
             </form>
 
             <p className="mt-6 text-sm text-slate-600">
               Nie masz konta?{" "}
               <Link className="font-semibold text-blue-600" to="/register">
-                Zarejestruj sie
+                Zarejestruj się
               </Link>
             </p>
           </div>

@@ -8,11 +8,11 @@ import {
 import { useAuthStore } from "../zustand/authStore";
 
 const dayOptions = [
-  { value: 1, label: "Poniedzialek" },
+  { value: 1, label: "Poniedziałek" },
   { value: 2, label: "Wtorek" },
-  { value: 3, label: "Sroda" },
+  { value: 3, label: "Środa" },
   { value: 4, label: "Czwartek" },
-  { value: 5, label: "Piatek" },
+  { value: 5, label: "Piątek" },
   { value: 6, label: "Sobota" },
   { value: 7, label: "Niedziela" },
 ];
@@ -54,20 +54,20 @@ export default function SchedulePage() {
     <section className="space-y-6 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-lg shadow-slate-200/70">
       <div className="space-y-3">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">
-          Plan zajec
+          Plan zajęć
         </p>
         <h1 className="text-4xl font-black leading-tight text-slate-900 md:text-5xl">
           Tygodniowy harmonogram
         </h1>
         <p className="max-w-2xl text-sm leading-7 text-slate-600">
-          Widok jest tylko do odczytu. Dane pobierane sa z chronionego endpointu
+          Widok jest tylko do odczytu. Dane pobierane są z chronionego endpointu
           `/api/schedule` i grupowane po dniach tygodnia.
         </p>
       </div>
 
       {scheduleQuery.isLoading ? (
         <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-600">
-          Ladowanie planu zajec...
+          Ładowanie planu zajęć...
         </div>
       ) : null}
 
@@ -87,13 +87,13 @@ export default function SchedulePage() {
               <div className="mb-4 flex items-center justify-between gap-4">
                 <h2 className="text-lg font-semibold text-slate-900">{group.label}</h2>
                 <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs uppercase tracking-[0.2em] text-slate-500">
-                  {group.entries.length} wpisow
+                  {group.entries.length} wpisów
                 </span>
               </div>
 
               {group.entries.length === 0 ? (
                 <p className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-4 text-sm text-slate-500">
-                  Brak zajec w tym dniu.
+                  Brak zajęć w tym dniu.
                 </p>
               ) : (
                 <div className="grid gap-3">
@@ -115,7 +115,7 @@ export default function SchedulePage() {
                         <h3 className="text-xl font-semibold text-slate-900">{entry.title}</h3>
 
                         <div className="space-y-1 text-sm text-slate-600">
-                          {entry.lecturer ? <p>Prowadzacy: {entry.lecturer}</p> : null}
+                          {entry.lecturer ? <p>Prowadzący: {entry.lecturer}</p> : null}
                           {entry.notes ? <p className="leading-6 text-slate-500">{entry.notes}</p> : null}
                         </div>
                       </div>

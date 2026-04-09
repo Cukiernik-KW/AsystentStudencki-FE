@@ -34,7 +34,7 @@ export default function NewsPage() {
         setData(result);
       })
       .catch(() => {
-        setErrorMessage("Nie udalo sie pobrac aktualnosci.");
+        setErrorMessage("Nie udało się pobrać aktualności.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -51,11 +51,11 @@ export default function NewsPage() {
         </p>
 
         {isLoading ? (
-          <p className="mt-4 text-sm leading-7 text-slate-600">Ladowanie aktualnosci...</p>
+          <p className="mt-4 text-sm leading-7 text-slate-600">Ładowanie aktualności...</p>
         ) : errorMessage ? (
           <p className="mt-4 text-sm leading-7 text-rose-700">{errorMessage}</p>
         ) : !data?.data?.length ? (
-          <p className="mt-4 text-sm leading-7 text-slate-600">Brak aktualnosci do wyswietlenia.</p>
+          <p className="mt-4 text-sm leading-7 text-slate-600">Brak aktualności do wyświetlenia.</p>
         ) : (
           <div className="mt-6 space-y-4">
             {data.data.map((item) => (

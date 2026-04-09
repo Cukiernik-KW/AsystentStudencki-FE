@@ -32,7 +32,7 @@ export default function AppShell() {
             type="button"
             onClick={() => setIsMobileMenuOpen((value) => !value)}
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 lg:hidden"
-            aria-label={isMobileMenuOpen ? "Zamknij menu" : "Otworz menu"}
+            aria-label={isMobileMenuOpen ? "Zamknij menu" : "Otwórz menu"}
             aria-expanded={isMobileMenuOpen}
           >
             <span className="flex flex-col gap-1.5">
@@ -45,7 +45,7 @@ export default function AppShell() {
           <Link
             to="/"
             className="min-w-0 flex-1 text-left lg:min-w-fit lg:flex-none"
-            aria-label="Przejdz do strony glownej"
+            aria-label="Przejdź do strony głównej"
           >
             <span className="block text-xs uppercase tracking-[0.4em] text-blue-600">
               STUDENCKI
@@ -79,7 +79,7 @@ export default function AppShell() {
                 onClick={() => setIsAccountMenuOpen((value) => !value)}
                 className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2 text-left leading-tight text-slate-700 transition hover:border-slate-300 hover:bg-white"
                 aria-expanded={isAccountMenuOpen}
-                aria-label="Otworz menu konta"
+                aria-label="Otwórz menu konta"
               >
                 <div className="text-[11px] uppercase tracking-[0.24em] text-slate-400">
                   Konto
@@ -106,7 +106,7 @@ export default function AppShell() {
               onClick={() => navigate("/login")}
               className="ml-auto rounded-full border border-blue-600 bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
             >
-              Zaloguj sie
+              Zaloguj się
             </button>
           )}
         </div>
@@ -163,7 +163,7 @@ export default function AppShell() {
                   onClick={() => navigate("/login")}
                   className="rounded-2xl border border-blue-600 bg-blue-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-blue-700"
                 >
-                  Zaloguj sie
+                  Zaloguj się
                 </button>
               )}
             </div>

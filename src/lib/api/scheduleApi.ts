@@ -245,7 +245,7 @@ export const getScheduleErrorState = (error: unknown) => {
   if (error instanceof ApiError) {
     if (error.status === 401) {
       return {
-        message: "Sesja wygasla. Zaloguj sie ponownie.",
+        message: "Sesja wygasła. Zaloguj się ponownie.",
         fieldErrors,
       };
     }
@@ -285,7 +285,7 @@ export const getScheduleErrorState = (error: unknown) => {
   }
 
   return {
-    message: "Nie udalo sie zapisac planu zajec.",
+    message: "Nie udało się zapisać planu zajęć.",
     fieldErrors,
   };
 };

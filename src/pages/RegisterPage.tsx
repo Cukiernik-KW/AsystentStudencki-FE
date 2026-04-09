@@ -15,7 +15,7 @@ const getErrorMessage = (error: unknown) => {
     return error.message;
   }
 
-  return "Nie udalo sie utworzyc konta.";
+  return "Nie udało się utworzyć konta.";
 };
 
 export default function RegisterPage() {
@@ -30,12 +30,12 @@ export default function RegisterPage() {
     event.preventDefault();
 
     if (!emailPattern.test(email)) {
-      setErrorMessage("Podaj poprawny adres email.");
+      setErrorMessage("Podaj poprawny adres e-mail.");
       return;
     }
 
     if (password.length < 6) {
-      setErrorMessage("Haslo musi miec co najmniej 6 znakow.");
+      setErrorMessage("Hasło musi mieć co najmniej 6 znaków.");
       return;
     }
 
@@ -73,7 +73,7 @@ export default function RegisterPage() {
 
               <div className="space-y-2">
                 <label className="text-sm font-medium" htmlFor="register-password">
-                  Haslo
+                  Hasło
                 </label>
                 <input
                   id="register-password"
@@ -82,7 +82,7 @@ export default function RegisterPage() {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-blue-500"
-                  placeholder="Minimum 6 znakow"
+                  placeholder="Minimum 6 znaków"
                   disabled={isAuthLoading}
                 />
               </div>
@@ -98,14 +98,14 @@ export default function RegisterPage() {
                 disabled={isAuthLoading}
                 className="w-full rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
               >
-                {isAuthLoading ? "Tworzenie konta..." : "Utworz konto"}
+                {isAuthLoading ? "Tworzenie konta..." : "Utwórz konto"}
               </button>
             </form>
 
             <p className="mt-6 text-sm text-slate-600">
-              Masz juz konto?{" "}
+              Masz już konto?{" "}
               <Link className="font-semibold text-blue-600" to="/login">
-                Wroc do logowania
+                Wróć do logowania
               </Link>
             </p>
           </div>
@@ -117,21 +117,21 @@ export default function RegisterPage() {
               </p>
               <div className="space-y-4">
                 <h1 className="text-4xl font-semibold tracking-tight text-slate-900">
-                  Utworz konto i przejdz od razu do aplikacji
+                  Utwórz konto i przejdź od razu do aplikacji
                 </h1>
                 <p className="max-w-lg text-base leading-7 text-slate-600">
-                  Po sukcesie backend zalozy sesje w cookie, a frontend zapisze tylko dane
-                  uzytkownika w stanie aplikacji.
+                  Po sukcesie backend założy sesję w cookie, a frontend zapisze tylko dane
+                  użytkownika w stanie aplikacji.
                 </p>
               </div>
             </div>
 
             <div className="space-y-4 text-sm text-slate-600">
               <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4">
-                Bez tokenow w localStorage
+                Bez tokenów w localStorage
               </div>
               <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4">
-                Jedno zrodlo prawdy: /auth/me
+                Jedno źródło prawdy: /auth/me
               </div>
             </div>
           </div>

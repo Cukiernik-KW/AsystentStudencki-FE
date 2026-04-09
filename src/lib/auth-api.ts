@@ -25,7 +25,7 @@ const toUser = (payload: AuthResponse): AuthUser => {
     };
   }
 
-  throw new Error("Backend nie zwrocil danych uzytkownika.");
+  throw new Error("Backend nie zwrócił danych użytkownika.");
 };
 
 export const register = async (email: string, password: string) => {

@@ -27,7 +27,7 @@ const getErrorMessage = (error: unknown) => {
     return error.message;
   }
 
-  return "Nie udalo sie wyslac wiadomosci. Sprobuj ponownie.";
+  return "Nie udało się wysłać wiadomości. Spróbuj ponownie.";
 };
 
 export default function DeanOfficePage() {
@@ -87,11 +87,11 @@ export default function DeanOfficePage() {
           Dziekanat
         </p>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-900">
-          Kontakt i obsluga spraw studenckich
+          Kontakt i obsługa spraw studenckich
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
-          Dziekanat znajduje sie w budynku A, pokoj 204. Godziny pracy dziekanatu:
-          poniedzialek-piatek od 8:00 do 14:00.
+          Dziekanat znajduje się w budynku A, pokój 204. Godziny pracy dziekanatu:
+          poniedziałek-piątek od 8:00 do 14:00.
         </p>
 
         <div className="mt-8 grid gap-4">
@@ -106,10 +106,10 @@ export default function DeanOfficePage() {
         </div>
 
         <div className="mt-8 rounded-[1.75rem] border border-blue-100 bg-blue-50 p-6">
-          <h2 className="text-xl font-semibold text-slate-900">Jakie sprawy zalatwisz w dziekanacie?</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Jakie sprawy załatwisz w dziekanacie?</h2>
           <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-700">
-            <li>Potwierdzenia i zaswiadczenia dla studentow.</li>
-            <li>Informacje o terminach, podaniach i obsludze toku studiow.</li>
+            <li>Potwierdzenia i zaświadczenia dla studentów.</li>
+            <li>Informacje o terminach, podaniach i obsłudze toku studiów.</li>
             <li>Kontakt w sprawach administracyjnych i organizacyjnych.</li>
           </ul>
         </div>
@@ -126,7 +126,7 @@ export default function DeanOfficePage() {
         <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
           <div className="space-y-2">
             <label className="text-sm font-medium" htmlFor="dean-name">
-              Imie i nazwisko
+              Imię i nazwisko
             </label>
             <input
               id="dean-name"
@@ -166,7 +166,7 @@ export default function DeanOfficePage() {
               value={formState.topic}
               onChange={(event) => updateField("topic", event.target.value)}
               className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-blue-500"
-              placeholder="Np. prosba o zaswiadczenie"
+              placeholder="Np. prośba o zaświadczenie"
               disabled={isSubmitting}
               required
             />
@@ -174,14 +174,14 @@ export default function DeanOfficePage() {
 
           <div className="space-y-2">
             <label className="text-sm font-medium" htmlFor="dean-message">
-              Wiadomosc
+              Wiadomość
             </label>
             <textarea
               id="dean-message"
               value={formState.message}
               onChange={(event) => updateField("message", event.target.value)}
               className="min-h-40 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-blue-500"
-              placeholder="Opisz swoja sprawe."
+              placeholder="Opisz swoją sprawę."
               disabled={isSubmitting}
               required
             />
@@ -195,7 +195,7 @@ export default function DeanOfficePage() {
 
           {isSubmitted ? (
             <p className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-              Wiadomosc zostala wyslana do dziekanatu.
+              Wiadomość została wysłana do dziekanatu.
             </p>
           ) : null}
 
@@ -204,7 +204,7 @@ export default function DeanOfficePage() {
             disabled={isSubmitting}
             className="w-full rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
           >
-            {isSubmitting ? "Wysylanie..." : "Wyslij wiadomosc"}
+            {isSubmitting ? "Wysyłanie..." : "Wyślij wiadomość"}
           </button>
         </form>
       </aside>

@@ -253,7 +253,7 @@ export default function ChatToggle() {
         ...current,
         {
           type: "bot",
-          text: "Brak konfiguracji czatu w pliku .env. Uzupelnij ustawienia i odswiez aplikacje.",
+          text: "Brak konfiguracji czatu w pliku .env. Uzupełnij ustawienia i odśwież aplikację.",
         },
       ]);
       return;
@@ -449,7 +449,7 @@ export default function ChatToggle() {
       <button
         className="grid h-14 w-14 place-items-center rounded-full bg-blue-600 text-sm font-semibold text-white shadow-2xl hover:bg-blue-700"
         onClick={() => setOpen((value) => !value)}
-        aria-label="Otworz czat"
+        aria-label="Otwórz czat"
         type="button"
       >
         Chat
@@ -533,7 +533,7 @@ export default function ChatToggle() {
               onKeyDown={handleKeyDown}
               rows={1}
               className="flex-1 resize-none rounded-lg border px-3 py-2 text-sm text-black outline-none placeholder:text-gray-500 focus:ring"
-              placeholder="Wpisz wiadomosc..."
+              placeholder="Wpisz wiadomość..."
               disabled={disabled || !isConversationStarted}
             />
             <button
@@ -549,8 +549,8 @@ export default function ChatToggle() {
 
           {!isConversationStarted ? (
             <div className="px-3 pb-3 text-xs leading-relaxed text-gray-500">
-              Najpierw rozpocznij rozmowe przyciskiem {"Cze\u015B\u0107"}. Rozpoczynajac czat,
-              akceptujesz polityke prywatnosci.
+              Najpierw rozpocznij rozmowę przyciskiem {"Cze\u015B\u0107"}. Rozpoczynając czat,
+              akceptujesz politykę prywatności.
             </div>
           ) : null}
         </div>
