@@ -59,28 +59,18 @@ export default function LoginPage() {
     <div className="min-h-screen bg-slate-100 px-6 py-12 text-slate-900">
       <div className="mx-auto flex min-h-[80vh] w-full max-w-5xl items-center justify-center">
         <section className="grid w-full overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/70 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="flex flex-col justify-between gap-10 bg-slate-50 p-8 sm:p-10">
+          <div className="bg-slate-50 p-8 sm:p-10">
             <div className="space-y-6">
               <p className="text-sm font-semibold uppercase tracking-[0.35em] text-blue-600">
                 Asystent Studencki
               </p>
               <div className="space-y-4">
                 <h1 className="text-4xl font-semibold tracking-tight text-slate-900">
-                  Zaloguj się do panelu studenta
+                  Zaloguj się
                 </h1>
                 <p className="max-w-lg text-base leading-7 text-slate-600">
-                  Sesja jest utrzymywana przez backend w HttpOnly cookie. Po odświeżeniu
-                  aplikacja odtworzy stan przez endpoint me.
+                  Uzyskaj dostęp do swojego konta i najważniejszych informacji studenckich.
                 </p>
-              </div>
-            </div>
-
-            <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2">
-              <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4">
-                Chronione widoki
-              </div>
-              <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4">
-                Automatyczne odświeżanie sesji
               </div>
             </div>
           </div>
@@ -89,7 +79,7 @@ export default function LoginPage() {
             <form className="space-y-5" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label className="text-sm font-medium" htmlFor="login-email">
-                  Email
+                  E-mail
                 </label>
                 <input
                   id="login-email"

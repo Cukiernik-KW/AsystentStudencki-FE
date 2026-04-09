@@ -253,7 +253,7 @@ export default function ChatToggle() {
         ...current,
         {
           type: "bot",
-          text: "Brak konfiguracji czatu w pliku .env. Uzupełnij ustawienia i odśwież aplikację.",
+          text: "Czat jest obecnie niedostępny.",
         },
       ]);
       return;
@@ -458,7 +458,7 @@ export default function ChatToggle() {
       {open ? (
         <div className="mt-3 flex h-96 w-80 flex-col rounded-2xl border border-gray-200 bg-white shadow-2xl">
           <div className="flex items-center justify-between border-b px-4 py-2">
-            <div className="font-semibold text-black">Live chat</div>
+            <div className="font-semibold text-black">Czat</div>
             <button
               className="cursor-pointer text-gray-500 hover:text-black"
               onClick={() => setOpen(false)}
@@ -549,8 +549,7 @@ export default function ChatToggle() {
 
           {!isConversationStarted ? (
             <div className="px-3 pb-3 text-xs leading-relaxed text-gray-500">
-              Najpierw rozpocznij rozmowę przyciskiem {"Cze\u015B\u0107"}. Rozpoczynając czat,
-              akceptujesz politykę prywatności.
+              Rozpocznij rozmowę przyciskiem {"Cze\u015B\u0107"}.
             </div>
           ) : null}
         </div>

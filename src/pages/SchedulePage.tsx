@@ -60,8 +60,7 @@ export default function SchedulePage() {
           Tygodniowy harmonogram
         </h1>
         <p className="max-w-2xl text-sm leading-7 text-slate-600">
-          Widok jest tylko do odczytu. Dane pobierane są z chronionego endpointu
-          `/api/schedule` i grupowane po dniach tygodnia.
+          Sprawdź zajęcia zaplanowane na poszczególne dni tygodnia.
         </p>
       </div>
 

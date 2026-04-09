@@ -59,8 +59,7 @@ export default function PaymentsPage() {
             Wybierz opłatę i przejdź do płatności
           </h2>
           <p className="max-w-2xl text-sm leading-7 text-slate-600">
-            Płatność jest inicjowana po stronie backendu i przekierowuje do bezpiecznej strony
-            Stripe Checkout. Status po powrocie zostanie zweryfikowany z backendem.
+            Po wybraniu opłaty zostaniesz przekierowany do bezpiecznej strony płatności.
           </p>
         </div>
 
@@ -85,11 +84,6 @@ export default function PaymentsPage() {
                   </p>
                   <h3 className="text-xl font-semibold text-slate-900">{fee.title}</h3>
                   <p className="text-sm leading-6 text-slate-600">{fee.description}</p>
-                </div>
-
-                <div className="mt-6 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-500">
-                  Order ID zostanie wyliczone automatycznie z typu opłaty i tożsamości
-                  zalogowanego użytkownika.
                 </div>
 
                 <button

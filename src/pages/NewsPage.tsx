@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
 import PageSection from "../components/PageSection";
 import {
   type FulfillmentTextsResponse,
   fulfillmentTextsApi,
 } from "../lib/api/fulfillmentTextsApi";
-import { useState, useEffect } from "react";
 
 function formatNewsDate(dateString: string) {
   const date = new Date(dateString);
@@ -30,7 +30,6 @@ export default function NewsPage() {
     fulfillmentTextsApi
       .getFulfillmentTexts()
       .then((result) => {
-        console.log("TEST", result);
         setData(result);
       })
       .catch(() => {
@@ -47,7 +46,7 @@ export default function NewsPage() {
 
       <section className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-lg shadow-slate-200/70">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">
-          Dane z API
+          Aktualności
         </p>
 
         {isLoading ? (

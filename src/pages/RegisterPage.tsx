@@ -57,7 +57,7 @@ export default function RegisterPage() {
             <form className="space-y-5" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label className="text-sm font-medium" htmlFor="register-email">
-                  Email
+                  E-mail
                 </label>
                 <input
                   id="register-email"
@@ -110,28 +110,18 @@ export default function RegisterPage() {
             </p>
           </div>
 
-          <div className="flex flex-col justify-between gap-10 bg-slate-50 p-8 sm:p-10">
+          <div className="bg-slate-50 p-8 sm:p-10">
             <div className="space-y-6">
               <p className="text-sm font-semibold uppercase tracking-[0.35em] text-blue-600">
                 Rejestracja
               </p>
               <div className="space-y-4">
                 <h1 className="text-4xl font-semibold tracking-tight text-slate-900">
-                  Utwórz konto i przejdź od razu do aplikacji
+                  Utwórz konto
                 </h1>
                 <p className="max-w-lg text-base leading-7 text-slate-600">
-                  Po sukcesie backend założy sesję w cookie, a frontend zapisze tylko dane
-                  użytkownika w stanie aplikacji.
+                  Załóż konto, aby korzystać z najważniejszych funkcji serwisu studenckiego.
                 </p>
-              </div>
-            </div>
-
-            <div className="space-y-4 text-sm text-slate-600">
-              <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4">
-                Bez tokenów w localStorage
-              </div>
-              <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4">
-                Jedno źródło prawdy: /auth/me
               </div>
             </div>
           </div>

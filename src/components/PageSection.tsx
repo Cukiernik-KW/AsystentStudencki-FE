@@ -46,9 +46,6 @@ export default function PageSection({ pageId }: PageSectionProps) {
             >
               <p className="text-xs uppercase tracking-[0.3em] text-blue-600">Przejdź do</p>
               <h2 className="mt-3 text-xl font-semibold text-slate-900">{item.label}</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
-                Otwórz podstronę i uzupełnij ją o docelowe treści.
-              </p>
             </Link>
           ))}
         </section>

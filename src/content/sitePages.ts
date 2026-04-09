@@ -39,22 +39,21 @@ export const pageContent: Record<PageId, PageContent> = {
   home: {
     eyebrow: "Centrum informacji",
     title: "Wszystkie najważniejsze sprawy studenckie w jednym miejscu",
-    lead:
-      "Nowy pasek nawigacyjny prowadzi do najczęściej odwiedzanych sekcji serwisu.",
+    lead: "Szybki dostęp do najczęściej odwiedzanych sekcji serwisu.",
     body:
-      "Na stronie głównej zebrane są szybkie przejścia do rekrutacji, kontaktu z dziekanatem, informacji o opłatach, planie zajęć i bieżących aktualnościach.",
+      "Na stronie głównej znajdziesz najważniejsze informacje dotyczące rekrutacji, dziekanatu, opłat, planu zajęć i aktualności.",
     highlights: [
       "Przejrzysta nawigacja dla kandydatów i studentów",
-      "Czytelne sekcje z najważniejszymi informacjami",
-      "Układ gotowy do dalszej rozbudowy treści",
+      "Najważniejsze informacje w jednym miejscu",
+      "Szybki dostęp do kluczowych spraw",
     ],
   },
   rekrutacja: {
     eyebrow: "Podstrona",
     title: "Rekrutacja",
-    lead: "Tutaj można umieścić etapy naboru, wymagane dokumenty i terminy.",
+    lead: "Informacje dla kandydatów, terminy i wymagane dokumenty.",
     body:
-      "Sekcja rekrutacyjna jest przygotowana jako osobna podstrona, na której można dodać opis kierunków, harmonogram zapisów oraz odpowiedzi na najczęstsze pytania kandydatów.",
+      "W tej sekcji znajdziesz zasady naboru, harmonogram rekrutacji oraz odpowiedzi na najczęściej zadawane pytania kandydatów.",
     highlights: [
       "Wymagane dokumenty",
       "Terminy składania wniosków",
@@ -64,9 +63,9 @@ export const pageContent: Record<PageId, PageContent> = {
   dziekanat: {
     eyebrow: "Podstrona",
     title: "Dziekanat",
-    lead: "Miejsce na dane kontaktowe, godziny pracy i sprawy administracyjne.",
+    lead: "Kontakt, godziny pracy i sprawy administracyjne.",
     body:
-      "Na tej podstronie można pokazać informacje o obsłudze studentów, zasadach składania podań oraz formach kontaktu z dziekanatem.",
+      "Tutaj znajdziesz najważniejsze informacje dotyczące obsługi studentów, składania podań oraz kontaktu z dziekanatem.",
     highlights: [
       "Godziny pracy",
       "Numery telefonów i adresy e-mail",
@@ -76,9 +75,9 @@ export const pageContent: Record<PageId, PageContent> = {
   oplaty: {
     eyebrow: "Podstrona",
     title: "Opłaty",
-    lead: "Sekcja przeznaczona na cennik, terminy płatności i zasady rozliczeń.",
+    lead: "Cennik, terminy płatności i najważniejsze informacje rozliczeniowe.",
     body:
-      "Podstrona opłat pozwala uporządkować informacje o czesnym, opłatach dodatkowych oraz sposobach dokonywania płatności przez studentów.",
+      "W tej sekcji znajdziesz informacje o czesnym, opłatach dodatkowych oraz dostępnych formach płatności.",
     highlights: [
       "Czesne i opłaty dodatkowe",
       "Terminy płatności",
@@ -88,9 +87,9 @@ export const pageContent: Record<PageId, PageContent> = {
   "plan-zajec": {
     eyebrow: "Podstrona",
     title: "Plan zajęć",
-    lead: "Przestrzeń na harmonogramy zajęć dla różnych kierunków i roczników.",
+    lead: "Tygodniowy harmonogram zajęć i najważniejsze zmiany.",
     body:
-      "Ta sekcja może prowadzić do aktualnych planów zajęć, podziału na grupy oraz komunikatów o zmianach w harmonogramie.",
+      "W tej sekcji możesz sprawdzić aktualny plan zajęć, sale, godziny oraz informacje organizacyjne dotyczące harmonogramu.",
     highlights: [
       "Aktualne plany dla studentów",
       "Zmiany sal i godzin",
@@ -100,9 +99,9 @@ export const pageContent: Record<PageId, PageContent> = {
   aktualnosci: {
     eyebrow: "Podstrona",
     title: "Aktualności",
-    lead: "Sekcja na komunikaty uczelni, wydarzenia i ogłoszenia organizacyjne.",
+    lead: "Komunikaty uczelni, wydarzenia i ważne ogłoszenia.",
     body:
-      "Podstrona aktualności jest gotowa do publikowania informacji o terminach, wydarzeniach i zmianach ważnych dla kandydatów oraz studentów.",
+      "W tym miejscu publikowane są bieżące informacje ważne dla kandydatów, studentów i pracowników uczelni.",
     highlights: [
       "Komunikaty organizacyjne",
       "Wydarzenia i terminy",
