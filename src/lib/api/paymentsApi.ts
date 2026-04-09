@@ -44,7 +44,7 @@ const unwrapCheckoutSession = (
   const source = payload.data ?? payload;
 
   if (!source.url || typeof source.url !== "string") {
-    throw new Error("Backend nie zwrocil adresu przekierowania Stripe Checkout.");
+    throw new Error("Backend nie zwrócił adresu przekierowania Stripe Checkout.");
   }
 
   return {
@@ -104,19 +104,19 @@ export const getPaymentStatus = async (orderId: string): Promise<PaymentStatusRe
 export const getPaymentErrorMessage = (error: unknown) => {
   if (error instanceof ApiError) {
     if (error.status === 401) {
-      return "Sesja wygasla. Zaloguj sie ponownie, aby kontynuowac platnosc.";
+      return "Sesja wygasła. Zaloguj się ponownie, aby kontynuować płatność.";
     }
 
     if (error.status === 403) {
-      return "Nie masz uprawnien do wykonania tej operacji.";
+      return "Nie masz uprawnień do wykonania tej operacji.";
     }
 
     if (error.status === 409) {
-      return "Platnosc dla tego zamowienia zostala juz utworzona lub oplacona.";
+      return "Płatność dla tego zamówienia została już utworzona lub opłacona.";
     }
 
     if (error.status === 422 || error.status === 400) {
-      return error.message || "Niepoprawne dane platnosci.";
+      return error.message || "Niepoprawne dane płatności.";
     }
 
     return error.message;
@@ -126,5 +126,5 @@ export const getPaymentErrorMessage = (error: unknown) => {
     return error.message;
   }
 
-  return "Nie udalo sie przetworzyc platnosci.";
+  return "Nie udało się przetworzyć płatności.";
 };

@@ -20,30 +20,38 @@ export type PaymentCheckoutContext = {
 
 const PAYMENT_CONTEXT_KEY = "payments:last-checkout";
 
+export const feeTypeLabels: Record<FeeType, string> = {
+  recruitment_fee: "Opłata rekrutacyjna",
+  semester_fee: "Opłata semestralna",
+  library_fee: "Opłata biblioteczna",
+};
+
+export const getFeeTypeLabel = (feeType: FeeType) => feeTypeLabels[feeType];
+
 export const feeCatalog: FeeDefinition[] = [
   {
     id: "semester-2026-spring",
-    title: "Oplata semestralna",
-    description: "Platnosc za aktualny semestr studiow.",
+    title: "Opłata semestralna",
+    description: "Płatność za aktualny semestr studiów.",
     feeType: "semester_fee",
     orderKey: "semester-2026-spring",
-    ctaLabel: "Przejdz do platnosci",
+    ctaLabel: "Przejdź do płatności",
   },
   {
     id: "recruitment-2026",
-    title: "Oplata rekrutacyjna",
-    description: "Jednorazowa oplata za proces rekrutacji.",
+    title: "Opłata rekrutacyjna",
+    description: "Jednorazowa opłata za proces rekrutacji.",
     feeType: "recruitment_fee",
     orderKey: "recruitment-2026",
-    ctaLabel: "Oplac rekrutacje",
+    ctaLabel: "Opłać rekrutację",
   },
   {
     id: "library-2026",
-    title: "Oplata biblioteczna",
-    description: "Platnosc zwiazana z uslugami bibliotecznymi.",
+    title: "Opłata biblioteczna",
+    description: "Płatność związana z usługami bibliotecznymi.",
     feeType: "library_fee",
     orderKey: "library-2026",
-    ctaLabel: "Oplac biblioteke",
+    ctaLabel: "Opłać bibliotekę",
   },
 ];
 

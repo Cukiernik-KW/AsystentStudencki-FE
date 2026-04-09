@@ -1,7 +1,12 @@
 import { useState } from "react";
 import PageSection from "../components/PageSection";
 import { createCheckoutSession, getPaymentErrorMessage } from "../lib/api/paymentsApi";
-import { buildOrderId, feeCatalog, savePaymentCheckoutContext } from "../lib/payments";
+import {
+  buildOrderId,
+  feeCatalog,
+  getFeeTypeLabel,
+  savePaymentCheckoutContext,
+} from "../lib/payments";
 import { useAuthStore } from "../zustand/authStore";
 
 export default function PaymentsPage() {
@@ -12,7 +17,7 @@ export default function PaymentsPage() {
   const handleCheckout = async (feeId: string) => {
     const fee = feeCatalog.find((item) => item.id === feeId);
     if (!fee) {
-      setErrorMessage("Nie znaleziono konfiguracji dla wybranej oplaty.");
+      setErrorMessage("Nie znaleziono konfiguracji dla wybranej opłaty.");
       return;
     }
 
@@ -51,10 +56,10 @@ export default function PaymentsPage() {
             Stripe Checkout
           </p>
           <h2 className="text-3xl font-semibold tracking-tight text-slate-900">
-            Wybierz oplate i przejdz do platnosci
+            Wybierz opłatę i przejdź do płatności
           </h2>
           <p className="max-w-2xl text-sm leading-7 text-slate-600">
-            Platnosc jest inicjowana po stronie backendu i przekierowuje do bezpiecznej strony
+            Płatność jest inicjowana po stronie backendu i przekierowuje do bezpiecznej strony
             Stripe Checkout. Status po powrocie zostanie zweryfikowany z backendem.
           </p>
         </div>
@@ -76,15 +81,15 @@ export default function PaymentsPage() {
               >
                 <div className="space-y-3">
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-600">
-                    {fee.feeType}
+                    {getFeeTypeLabel(fee.feeType)}
                   </p>
                   <h3 className="text-xl font-semibold text-slate-900">{fee.title}</h3>
                   <p className="text-sm leading-6 text-slate-600">{fee.description}</p>
                 </div>
 
                 <div className="mt-6 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-500">
-                  Order ID zostanie wyliczone automatycznie z typu oplaty i tozsamosci
-                  zalogowanego uzytkownika.
+                  Order ID zostanie wyliczone automatycznie z typu opłaty i tożsamości
+                  zalogowanego użytkownika.
                 </div>
 
                 <button

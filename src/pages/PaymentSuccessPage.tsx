@@ -21,18 +21,18 @@ type SuccessState =
 
 const getHeading = (status: PaymentStatus) => {
   if (status === "paid") {
-    return "Platnosc zostala potwierdzona";
+    return "Płatność została potwierdzona";
   }
 
   if (status === "cancelled") {
-    return "Platnosc zostala anulowana";
+    return "Płatność została anulowana";
   }
 
   if (status === "failed") {
-    return "Platnosc nie powiodla sie";
+    return "Płatność nie powiodła się";
   }
 
-  return "Czekamy na potwierdzenie platnosci";
+  return "Czekamy na potwierdzenie płatności";
 };
 
 export default function PaymentSuccessPage() {
@@ -97,7 +97,7 @@ export default function PaymentSuccessPage() {
         setState({
           kind: "error",
           context,
-          message: "Platnosc nadal oczekuje na potwierdzenie. Sprawdz status ponownie za chwile.",
+          message: "Płatność nadal oczekuje na potwierdzenie. Sprawdź status ponownie za chwilę.",
         });
       } catch (error) {
         if (isCancelled) {
@@ -125,13 +125,13 @@ export default function PaymentSuccessPage() {
   return (
     <section className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-lg shadow-slate-200/70">
       <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">
-        Platnosc
+        Płatność
       </p>
       <h1 className="mt-4 text-4xl font-black text-slate-900">
         {state.kind === "missing"
-          ? "Brak kontekstu platnosci"
+          ? "Brak kontekstu płatności"
           : state.kind === "error"
-            ? "Nie udalo sie potwierdzic platnosci"
+            ? "Nie udało się potwierdzić płatności"
             : getHeading(state.kind)}
       </h1>
 
@@ -141,33 +141,33 @@ export default function PaymentSuccessPage() {
 
       {state.kind === "missing" ? (
         <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600">
-          Frontend nie znalazl lokalnego kontekstu platnosci. Wroc do strony oplat i rozpocznij
+          Frontend nie znalazł lokalnego kontekstu płatności. Wróć do strony opłat i rozpocznij
           checkout ponownie.
         </p>
       ) : null}
 
       {state.kind === "loading" || state.kind === "pending" ? (
         <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600">
-          Oczekiwanie na potwierdzenie dla: <strong>{state.context.feeTitle}</strong>. Proba{" "}
+          Oczekiwanie na potwierdzenie dla: <strong>{state.context.feeTitle}</strong>. Próba{" "}
           {state.attempts} z {MAX_POLL_ATTEMPTS}.
         </p>
       ) : null}
 
       {state.kind === "paid" ? (
         <p className="mt-4 max-w-2xl text-sm leading-7 text-emerald-700">
-          Backend potwierdzil status <strong>paid</strong> dla oplaty: {state.context.feeTitle}.
+          Backend potwierdził status <strong>paid</strong> dla opłaty: {state.context.feeTitle}.
         </p>
       ) : null}
 
       {state.kind === "cancelled" ? (
         <p className="mt-4 max-w-2xl text-sm leading-7 text-amber-700">
-          Checkout zostal anulowany przed finalnym potwierdzeniem platnosci.
+          Checkout został anulowany przed finalnym potwierdzeniem płatności.
         </p>
       ) : null}
 
       {state.kind === "failed" ? (
         <p className="mt-4 max-w-2xl text-sm leading-7 text-rose-700">
-          Backend zwrocil status nieudanej platnosci. Sprobuj ponownie z poziomu strony oplat.
+          Backend zwrócił status nieudanej płatności. Spróbuj ponownie z poziomu strony opłat.
         </p>
       ) : null}
 
@@ -180,13 +180,13 @@ export default function PaymentSuccessPage() {
           to="/oplaty"
           className="rounded-full border border-blue-600 bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700"
         >
-          Wroc do oplat
+          Wróć do opłat
         </Link>
         <Link
           to="/"
           className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:border-blue-300 hover:bg-blue-50"
         >
-          Wroc na strone glowna
+          Wróć na stronę główną
         </Link>
       </div>
     </section>
