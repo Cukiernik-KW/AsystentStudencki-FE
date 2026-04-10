@@ -130,6 +130,12 @@ export default function LoginPage() {
                 Zarejestruj się
               </Link>
             </p>
+
+            <p className="mt-3 text-sm text-slate-600">
+              <Link className="font-semibold text-slate-700 hover:text-blue-600" to="/">
+                Wróć na stronę główną
+              </Link>
+            </p>
           </div>
         </section>
       </div>
