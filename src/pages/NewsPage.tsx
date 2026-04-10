@@ -1,4 +1,9 @@
+import { useEffect, useMemo, useState } from "react";
 import PageSection from "../components/PageSection";
+import {
+  type FulfillmentTextItem,
+  fulfillmentTextsApi,
+} from "../lib/api/fulfillmentTextsApi";
 
 const organizationalMessages = [
   {
@@ -36,33 +41,34 @@ const eventsAndDates = [
   },
 ];
 
-const studentAndCandidateInfo = [
-  {
-    title: "Informacja dla kandydatów",
-    text: "Szczegółowe zasady naboru na nowy rok akademicki zostaną opublikowane po zatwierdzeniu harmonogramu rekrutacji.",
-  },
-  {
-    title: "Informacja dla studentów",
-    text: "Aktualizacje dotyczące zapisów na przedmioty i organizacji semestru będą pojawiały się na bieżąco w tej sekcji.",
-  },
-  {
-    title: "Informacja ogólna",
-    text: "W tym miejscu publikowane będą najważniejsze ogłoszenia dotyczące spraw dydaktycznych i administracyjnych.",
-  },
-];
-
 type ContentCard = {
   title: string;
   date?: string;
   text: string;
 };
 
+function formatNewsDate(dateString: string) {
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) {
+    return dateString;
+  }
+
+  return new Intl.DateTimeFormat("pl-PL", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
+}
+
 function SectionCards({ items }: { items: ContentCard[] }) {
   return (
     <div className="mt-6 grid gap-4">
       {items.map((item) => (
         <article
-          key={`${item.title}-${item.date ?? ""}`}
+          key={`${item.title}-${item.date ?? ""}-${item.text}`}
           className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 text-slate-700"
         >
           {item.date ? <p className="text-sm font-bold text-blue-600">{item.date}</p> : null}
@@ -74,7 +80,65 @@ function SectionCards({ items }: { items: ContentCard[] }) {
   );
 }
 
+function GeneralInfoSection({
+  backendItems,
+  isLoading,
+  errorMessage,
+}: {
+  backendItems: FulfillmentTextItem[];
+  isLoading: boolean;
+  errorMessage: string | null;
+}) {
+  const cards = useMemo<ContentCard[]>(
+    () =>
+      backendItems.map((item, index) => ({
+        title: `Informacja ogólna ${index + 1}`,
+        date: formatNewsDate(item.createdAt),
+        text: item.text,
+      })),
+    [backendItems],
+  );
+
+  return (
+    <section className="mt-8 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
+      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">
+        Informacja ogólna
+      </p>
+
+      {isLoading ? (
+        <p className="mt-4 text-sm leading-7 text-slate-600">Ładowanie komunikatów...</p>
+      ) : errorMessage ? (
+        <p className="mt-4 text-sm leading-7 text-rose-700">{errorMessage}</p>
+      ) : cards.length === 0 ? (
+        <p className="mt-4 text-sm leading-7 text-slate-600">
+          Brak komunikatów ogólnych do wyświetlenia.
+        </p>
+      ) : (
+        <SectionCards items={cards} />
+      )}
+    </section>
+  );
+}
+
 export default function NewsPage() {
+  const [backendItems, setBackendItems] = useState<FulfillmentTextItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    fulfillmentTextsApi
+      .getFulfillmentTexts()
+      .then((result) => {
+        setBackendItems(result.data ?? []);
+      })
+      .catch(() => {
+        setErrorMessage("Nie udało się pobrać komunikatów ogólnych.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
   return (
     <div className="space-y-6">
       <PageSection
@@ -122,7 +186,28 @@ export default function NewsPage() {
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">
           Ważne informacje
         </h2>
-        <SectionCards items={studentAndCandidateInfo} />
+
+        <div className="mt-6 grid gap-4">
+          <article className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 text-slate-700">
+            <h3 className="text-xl font-semibold text-slate-900">Informacja dla kandydatów</h3>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              Szczegółowe zasady naboru na nowy rok akademicki zostaną opublikowane po zatwierdzeniu harmonogramu rekrutacji.
+            </p>
+          </article>
+
+          <article className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 text-slate-700">
+            <h3 className="text-xl font-semibold text-slate-900">Informacja dla studentów</h3>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              Aktualizacje dotyczące zapisów na przedmioty i organizacji semestru będą pojawiały się na bieżąco w tej sekcji.
+            </p>
+          </article>
+        </div>
+
+        <GeneralInfoSection
+          backendItems={backendItems}
+          isLoading={isLoading}
+          errorMessage={errorMessage}
+        />
       </section>
     </div>
   );
