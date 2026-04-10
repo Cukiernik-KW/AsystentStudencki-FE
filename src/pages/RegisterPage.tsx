@@ -8,14 +8,26 @@ const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const getErrorMessage = (error: unknown) => {
   if (error instanceof ApiError) {
-    return error.message;
+    const data = error.data as
+      | {
+          message?: string;
+          errors?: {
+            fieldErrors?: {
+              password?: string[];
+            };
+          };
+        }
+      | undefined;
+
+    const passwordError = data?.errors?.fieldErrors?.password?.[0];
+    return passwordError || data?.message || error.message;
   }
 
   if (error instanceof Error && error.message) {
     return error.message;
   }
 
-  return "Nie udało się utworzyć konta.";
+  return "Wystąpił błąd rejestracji.";
 };
 
 export default function RegisterPage() {
@@ -28,18 +40,12 @@ export default function RegisterPage() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setErrorMessage(null);
 
     if (!emailPattern.test(email)) {
       setErrorMessage("Podaj poprawny adres e-mail.");
       return;
     }
-
-    if (password.length < 6) {
-      setErrorMessage("Hasło musi mieć co najmniej 6 znaków.");
-      return;
-    }
-
-    setErrorMessage(null);
 
     try {
       await register({ email, password });
@@ -82,7 +88,7 @@ export default function RegisterPage() {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-blue-500"
-                  placeholder="Minimum 6 znaków"
+                  placeholder="Wpisz hasło"
                   disabled={isAuthLoading}
                 />
               </div>
