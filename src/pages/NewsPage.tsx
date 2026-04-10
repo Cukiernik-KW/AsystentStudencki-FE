@@ -42,7 +42,7 @@ const eventsAndDates = [
 ];
 
 type ContentCard = {
-  title: string;
+  title?: string;
   date?: string;
   text: string;
 };
@@ -68,12 +68,14 @@ function SectionCards({ items }: { items: ContentCard[] }) {
     <div className="mt-6 grid gap-4">
       {items.map((item) => (
         <article
-          key={`${item.title}-${item.date ?? ""}-${item.text}`}
+          key={`${item.title ?? "card"}-${item.date ?? ""}-${item.text}`}
           className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 text-slate-700"
         >
           {item.date ? <p className="text-sm font-bold text-blue-600">{item.date}</p> : null}
-          <h3 className="mt-2 text-xl font-semibold text-slate-900">{item.title}</h3>
-          <p className="mt-3 text-sm leading-7 text-slate-600">{item.text}</p>
+          {item.title ? <h3 className="mt-2 text-xl font-semibold text-slate-900">{item.title}</h3> : null}
+          <p className={`${item.title ? "mt-3" : "mt-2"} text-sm leading-7 text-slate-600`}>
+            {item.text}
+          </p>
         </article>
       ))}
     </div>
@@ -91,8 +93,7 @@ function GeneralInfoSection({
 }) {
   const cards = useMemo<ContentCard[]>(
     () =>
-      backendItems.map((item, index) => ({
-        title: `Informacja ogólna ${index + 1}`,
+      backendItems.map((item) => ({
         date: formatNewsDate(item.createdAt),
         text: item.text,
       })),
