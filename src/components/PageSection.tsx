@@ -1,12 +1,20 @@
 import { Link } from "react-router-dom";
 import { heroCards, pageContent, type PageId } from "../content/sitePages";
 
-type PageSectionProps = {
-  pageId: PageId;
+type QuickPreviewItem = {
+  href?: string;
+  label: string;
 };
 
-export default function PageSection({ pageId }: PageSectionProps) {
+type PageSectionProps = {
+  pageId: PageId;
+  quickPreviewItems?: QuickPreviewItem[];
+};
+
+export default function PageSection({ pageId, quickPreviewItems }: PageSectionProps) {
   const currentPage = pageContent[pageId];
+  const previewItems =
+    quickPreviewItems ?? currentPage.highlights.map((label) => ({ label }));
 
   return (
     <>
@@ -27,9 +35,20 @@ export default function PageSection({ pageId }: PageSectionProps) {
             Szybki podgląd
           </p>
           <ul className="mt-4 space-y-3 text-sm text-slate-700">
-            {currentPage.highlights.map((item) => (
-              <li key={item} className="rounded-2xl border border-blue-100 bg-white px-4 py-3">
-                {item}
+            {previewItems.map((item) => (
+              <li key={item.label}>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    className="block rounded-2xl border border-blue-100 bg-white px-4 py-3 transition hover:border-blue-300 hover:bg-blue-100/40"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <div className="rounded-2xl border border-blue-100 bg-white px-4 py-3">
+                    {item.label}
+                  </div>
+                )}
               </li>
             ))}
           </ul>

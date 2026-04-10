@@ -75,14 +75,10 @@ export const pageContent: Record<PageId, PageContent> = {
   oplaty: {
     eyebrow: "Podstrona",
     title: "Opłaty",
-    lead: "Cennik, terminy płatności i najważniejsze informacje rozliczeniowe.",
+    lead: "Czesne, harmonogram wpłat i najważniejsze informacje rozliczeniowe.",
     body:
-      "W tej sekcji znajdziesz informacje o czesnym, opłatach dodatkowych oraz dostępnych formach płatności.",
-    highlights: [
-      "Czesne i opłaty dodatkowe",
-      "Terminy płatności",
-      "Dane do przelewów",
-    ],
+      "Sprawdź aktualne opłaty, najbliższe terminy płatności oraz wybierz właściwą pozycję do opłacenia online.",
+    highlights: ["Czesne i opłaty", "Terminy płatności"],
   },
   "plan-zajec": {
     eyebrow: "Podstrona",
@@ -99,9 +95,9 @@ export const pageContent: Record<PageId, PageContent> = {
   aktualnosci: {
     eyebrow: "Podstrona",
     title: "Aktualności",
-    lead: "Komunikaty uczelni, wydarzenia i ważne ogłoszenia.",
+    lead: "Komunikaty uczelni, wydarzenia i ważne informacje dla społeczności akademickiej.",
     body:
-      "W tym miejscu publikowane są bieżące informacje ważne dla kandydatów, studentów i pracowników uczelni.",
+      "Na tej stronie znajdziesz komunikaty organizacyjne, terminy wydarzeń oraz podstawowe informacje dla studentów i kandydatów.",
     highlights: [
       "Komunikaty organizacyjne",
       "Wydarzenia i terminy",
