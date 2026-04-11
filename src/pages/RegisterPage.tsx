@@ -6,23 +6,68 @@ import { useAuthStore } from "../zustand/authStore";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+type BackendErrorPayload = {
+  message?: unknown;
+  error?: unknown;
+  detail?: unknown;
+  errors?: {
+    fieldErrors?: Record<string, unknown>;
+  };
+  fieldErrors?: Record<string, unknown>;
+};
+
+const getFirstText = (value: unknown): string | undefined => {
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed || undefined;
+  }
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const text = getFirstText(item);
+
+      if (text) {
+        return text;
+      }
+    }
+  }
+
+  return undefined;
+};
+
+const getFirstFieldError = (fieldErrors?: Record<string, unknown>) => {
+  if (!fieldErrors) {
+    return undefined;
+  }
+
+  for (const value of Object.values(fieldErrors)) {
+    const text = getFirstText(value);
+
+    if (text) {
+      return text;
+    }
+  }
+
+  return undefined;
+};
+
 const getErrorMessage = (error: unknown) => {
   if (error instanceof ApiError) {
-    const data = error.data as
-      | {
-          message?: string;
-          errors?: {
-            fieldErrors?: Record<string, string[] | undefined>;
-          };
-        }
-      | undefined;
+    const data = error.data as BackendErrorPayload | undefined;
+    const firstFieldError =
+      getFirstFieldError(data?.errors?.fieldErrors) || getFirstFieldError(data?.fieldErrors);
+    const backendMessage =
+      getFirstText(data?.message) || getFirstText(data?.error) || getFirstText(data?.detail);
 
-    const fieldErrors = data?.errors?.fieldErrors;
-    const firstFieldError = fieldErrors
-      ? Object.values(fieldErrors).find((messages) => messages?.[0])?.[0]
-      : undefined;
+    if (firstFieldError || backendMessage) {
+      return firstFieldError || backendMessage;
+    }
 
-    return firstFieldError || data?.message || error.message;
+    if (error.status === 400 || error.status === 422) {
+      return "Nie udało się utworzyć konta. Sprawdź poprawność danych i spróbuj ponownie.";
+    }
+
+    return error.message;
   }
 
   if (error instanceof Error && error.message) {
@@ -96,7 +141,10 @@ export default function RegisterPage() {
               </div>
 
               {errorMessage ? (
-                <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                <p
+                  className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700"
+                  role="alert"
+                >
                   {errorMessage}
                 </p>
               ) : null}
