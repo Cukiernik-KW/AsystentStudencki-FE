@@ -66,13 +66,76 @@ const parseResponseBody = async (response: Response) => {
   return null;
 };
 
+const getFirstText = (value: unknown): string | undefined => {
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed || undefined;
+  }
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const text = getFirstText(item);
+
+      if (text) {
+        return text;
+      }
+    }
+  }
+
+  return undefined;
+};
+
+const getFirstFieldError = (value: unknown, preferredField?: string): string | undefined => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return undefined;
+  }
+
+  const fieldErrors = value as Record<string, unknown>;
+
+  if (preferredField) {
+    const preferredError = getFirstText(fieldErrors[preferredField]);
+
+    if (preferredError) {
+      return preferredError;
+    }
+  }
+
+  for (const fieldValue of Object.values(fieldErrors)) {
+    const text = getFirstText(fieldValue);
+
+    if (text) {
+      return text;
+    }
+  }
+
+  return undefined;
+};
+
 const getErrorMessage = (status: number, data: unknown) => {
   if (data && typeof data === "object") {
     const record = data as Record<string, unknown>;
-    const message = record.message ?? record.error ?? record.detail;
+    const errors = record.errors && typeof record.errors === "object"
+      ? (record.errors as Record<string, unknown>)
+      : undefined;
+    const fieldError =
+      getFirstFieldError(errors?.fieldErrors, "password") ||
+      getFirstFieldError(record.fieldErrors, "password");
 
-    if (typeof message === "string" && message.trim()) {
-      return message;
+    if (fieldError) {
+      return fieldError;
+    }
+
+    const formError = getFirstText(errors?.formErrors);
+
+    if (formError) {
+      return formError;
+    }
+
+    const message = record.message ?? record.error ?? record.detail;
+    const textMessage = getFirstText(message);
+
+    if (textMessage) {
+      return textMessage;
     }
 
     if (
