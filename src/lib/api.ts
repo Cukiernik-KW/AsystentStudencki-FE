@@ -22,6 +22,7 @@ export class ApiError extends Error {
 
 const rawApiUrl = import.meta.env.VITE_API_URL?.trim();
 const legacyBackendUrl = import.meta.env.VITE_BACKEND_URL?.trim();
+const productionApiUrl = "https://asystentstudencki.onrender.com/api";
 
 const normalizeApiBaseUrl = (value?: string) => {
   if (!value) {
@@ -32,7 +33,9 @@ const normalizeApiBaseUrl = (value?: string) => {
   return trimmed.endsWith("/api") ? trimmed : `${trimmed}/api`;
 };
 
-export const API_URL = normalizeApiBaseUrl(rawApiUrl || legacyBackendUrl);
+export const API_URL = normalizeApiBaseUrl(
+  rawApiUrl || legacyBackendUrl || (import.meta.env.PROD ? productionApiUrl : ""),
+);
 
 let unauthorizedHandler: (() => void) | null = null;
 

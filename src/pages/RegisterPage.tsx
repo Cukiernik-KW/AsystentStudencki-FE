@@ -12,15 +12,17 @@ const getErrorMessage = (error: unknown) => {
       | {
           message?: string;
           errors?: {
-            fieldErrors?: {
-              password?: string[];
-            };
+            fieldErrors?: Record<string, string[] | undefined>;
           };
         }
       | undefined;
 
-    const passwordError = data?.errors?.fieldErrors?.password?.[0];
-    return passwordError || data?.message || error.message;
+    const fieldErrors = data?.errors?.fieldErrors;
+    const firstFieldError = fieldErrors
+      ? Object.values(fieldErrors).find((messages) => messages?.[0])?.[0]
+      : undefined;
+
+    return firstFieldError || data?.message || error.message;
   }
 
   if (error instanceof Error && error.message) {

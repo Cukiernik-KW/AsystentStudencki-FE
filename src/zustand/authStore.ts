@@ -33,34 +33,6 @@ type AuthStoreState = {
   logout: () => Promise<void>;
 };
 
-const LOGOUT_MARKER_KEY = "auth:logout-marker";
-
-const hasWindow = () => typeof window !== "undefined";
-
-const setLogoutMarker = () => {
-  if (!hasWindow()) {
-    return;
-  }
-
-  window.localStorage.setItem(LOGOUT_MARKER_KEY, "1");
-};
-
-const clearLogoutMarker = () => {
-  if (!hasWindow()) {
-    return;
-  }
-
-  window.localStorage.removeItem(LOGOUT_MARKER_KEY);
-};
-
-const hasLogoutMarker = () => {
-  if (!hasWindow()) {
-    return false;
-  }
-
-  return window.localStorage.getItem(LOGOUT_MARKER_KEY) === "1";
-};
-
 const getErrorMessage = (error: unknown) => {
   if (error instanceof Error && error.message) {
     return error.message;
@@ -82,10 +54,6 @@ export const useAuthStore = create<AuthStoreState>((set) => ({
 
   setUser: (user) =>
     {
-      if (user) {
-        clearLogoutMarker();
-      }
-
       set({
         user,
         isAuthenticated: Boolean(user),
@@ -95,7 +63,6 @@ export const useAuthStore = create<AuthStoreState>((set) => ({
 
   clearAuth: () =>
     {
-      setLogoutMarker();
       resetUserScopedQueries();
       set({
         user: null,
@@ -107,24 +74,10 @@ export const useAuthStore = create<AuthStoreState>((set) => ({
     },
 
   refreshSession: async () => {
-    if (hasLogoutMarker()) {
-      resetUserScopedQueries();
-      set({
-        user: null,
-        isAuthenticated: false,
-        isAuthLoading: false,
-        hasHydrated: true,
-        error: null,
-      });
-
-      return null;
-    }
-
     set({ isAuthLoading: true, error: null });
 
     try {
       const user = await getMe();
-      clearLogoutMarker();
       resetUserScopedQueries();
 
       set({
@@ -155,7 +108,6 @@ export const useAuthStore = create<AuthStoreState>((set) => ({
 
     try {
       const user = await loginRequest(email, password);
-      clearLogoutMarker();
       resetUserScopedQueries();
       set({
         user,
@@ -177,7 +129,6 @@ export const useAuthStore = create<AuthStoreState>((set) => ({
 
     try {
       const user = await registerRequest(email, password);
-      clearLogoutMarker();
       resetUserScopedQueries();
       set({
         user,
@@ -196,7 +147,6 @@ export const useAuthStore = create<AuthStoreState>((set) => ({
 
   logout: async () => {
     set({ isAuthLoading: true, error: null });
-    setLogoutMarker();
 
     try {
       await logoutRequest();
