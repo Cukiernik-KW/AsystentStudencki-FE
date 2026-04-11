@@ -1,83 +1,14 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ApiError } from "../lib/api";
+import { ApiError, getApiErrorMessage } from "../lib/api";
 import { useAuthStore } from "../zustand/authStore";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-type BackendErrorPayload = {
-  message?: unknown;
-  error?: unknown;
-  detail?: unknown;
-  errors?: {
-    formErrors?: unknown;
-    fieldErrors?: Record<string, unknown>;
-  };
-  fieldErrors?: Record<string, unknown>;
-};
-
-const getFirstText = (value: unknown): string | undefined => {
-  if (typeof value === "string") {
-    const trimmed = value.trim();
-    return trimmed || undefined;
-  }
-
-  if (Array.isArray(value)) {
-    for (const item of value) {
-      const text = getFirstText(item);
-
-      if (text) {
-        return text;
-      }
-    }
-  }
-
-  return undefined;
-};
-
-const getFieldError = (fieldErrors: Record<string, unknown> | undefined, fieldName: string) => {
-  return getFirstText(fieldErrors?.[fieldName]);
-};
-
-const getFirstFieldError = (fieldErrors?: Record<string, unknown>) => {
-  if (!fieldErrors) {
-    return undefined;
-  }
-
-  for (const value of Object.values(fieldErrors)) {
-    const text = getFirstText(value);
-
-    if (text) {
-      return text;
-    }
-  }
-
-  return undefined;
-};
-
 const getErrorMessage = (error: unknown) => {
   if (error instanceof ApiError) {
-    const data = error.data as BackendErrorPayload | undefined;
-    const nestedFieldErrors = data?.errors?.fieldErrors;
-    const directFieldErrors = data?.fieldErrors;
-    const passwordError =
-      getFieldError(nestedFieldErrors, "password") || getFieldError(directFieldErrors, "password");
-    const firstFieldError =
-      getFirstFieldError(nestedFieldErrors) || getFirstFieldError(directFieldErrors);
-    const formError = getFirstText(data?.errors?.formErrors);
-    const backendMessage =
-      getFirstText(data?.message) || getFirstText(data?.error) || getFirstText(data?.detail);
-
-    if (passwordError || firstFieldError || formError || backendMessage) {
-      return passwordError || firstFieldError || formError || backendMessage;
-    }
-
-    if (error.status === 400 || error.status === 422) {
-      return "Nie udało się utworzyć konta. Sprawdź poprawność danych i spróbuj ponownie.";
-    }
-
-    return error.message;
+    return getApiErrorMessage(error.status, error.data, "password");
   }
 
   if (error instanceof Error && error.message) {

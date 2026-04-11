@@ -5,7 +5,7 @@ import {
   logout as logoutRequest,
   register as registerRequest,
 } from "../lib/auth-api";
-import { setUnauthorizedHandler } from "../lib/api";
+import { ApiError, getApiErrorMessage, setUnauthorizedHandler } from "../lib/api";
 import { queryClient } from "../lib/queryClient";
 
 export type AuthUser = {
@@ -34,6 +34,10 @@ type AuthStoreState = {
 };
 
 const getErrorMessage = (error: unknown) => {
+  if (error instanceof ApiError) {
+    return getApiErrorMessage(error.status, error.data, "password");
+  }
+
   if (error instanceof Error && error.message) {
     return error.message;
   }

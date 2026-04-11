@@ -111,15 +111,15 @@ const getFirstFieldError = (value: unknown, preferredField?: string): string | u
   return undefined;
 };
 
-const getErrorMessage = (status: number, data: unknown) => {
+export const getApiErrorMessage = (status: number, data: unknown, preferredField?: string) => {
   if (data && typeof data === "object") {
     const record = data as Record<string, unknown>;
     const errors = record.errors && typeof record.errors === "object"
       ? (record.errors as Record<string, unknown>)
       : undefined;
     const fieldError =
-      getFirstFieldError(errors?.fieldErrors, "password") ||
-      getFirstFieldError(record.fieldErrors, "password");
+      getFirstFieldError(errors?.fieldErrors, preferredField) ||
+      getFirstFieldError(record.fieldErrors, preferredField);
 
     if (fieldError) {
       return fieldError;
@@ -179,7 +179,7 @@ export async function apiRequest<T>(path: string, options: ApiRequestOptions = {
       unauthorizedHandler?.();
     }
 
-    throw new ApiError(getErrorMessage(response.status, data), response.status, data);
+    throw new ApiError(getApiErrorMessage(response.status, data), response.status, data);
   }
 
   return data as T;
