@@ -1,7 +1,7 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ApiError, getApiErrorMessage } from "../lib/api";
+import { ApiError, getApiErrorMessage } from "../lib/api/httpClient";
 import { useAuthStore } from "../zustand/authStore";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

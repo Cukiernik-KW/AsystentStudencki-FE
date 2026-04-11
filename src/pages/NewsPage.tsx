@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import PageSection from "../components/PageSection";
 import {
-  type FulfillmentTextItem,
-  fulfillmentTextsApi,
-} from "../lib/api/fulfillmentTextsApi";
+  type GeneralMessageItem,
+  generalMessagesApi,
+} from "../lib/api/generalMessagesApi";
 
 const organizationalMessages = [
   {
@@ -87,7 +87,7 @@ function GeneralInfoSection({
   isLoading,
   errorMessage,
 }: {
-  backendItems: FulfillmentTextItem[];
+  backendItems: GeneralMessageItem[];
   isLoading: boolean;
   errorMessage: string | null;
 }) {
@@ -122,13 +122,13 @@ function GeneralInfoSection({
 }
 
 export default function NewsPage() {
-  const [backendItems, setBackendItems] = useState<FulfillmentTextItem[]>([]);
+  const [backendItems, setBackendItems] = useState<GeneralMessageItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    fulfillmentTextsApi
-      .getFulfillmentTexts()
+    generalMessagesApi
+      .getGeneralMessages()
       .then((result) => {
         setBackendItems(result.data ?? []);
       })

@@ -4,8 +4,8 @@ import {
   login as loginRequest,
   logout as logoutRequest,
   register as registerRequest,
-} from "../lib/auth-api";
-import { ApiError, getApiErrorMessage, setUnauthorizedHandler } from "../lib/api";
+} from "../lib/api/authApi";
+import { ApiError, getApiErrorMessage, setUnauthorizedHandler } from "../lib/api/httpClient";
 import { queryClient } from "../lib/queryClient";
 
 export type AuthUser = {

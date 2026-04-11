@@ -1,4 +1,4 @@
-import { ApiError, apiRequest } from "../api";
+import { ApiError, apiRequest } from "./httpClient";
 
 type RequestMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 

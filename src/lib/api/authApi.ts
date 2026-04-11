@@ -1,5 +1,5 @@
-import { apiRequest } from "./api";
-import type { AuthUser } from "../zustand/authStore";
+import { apiRequest } from "./httpClient";
+import type { AuthUser } from "../../zustand/authStore";
 
 type AuthResponse = {
   user?: AuthUser;

@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
-import { ApiError } from "../lib/api";
+import { ApiError } from "../lib/api/httpClient";
 import { sendDeanOfficeMessage } from "../lib/api/deanOfficeApi";
 import { useAuthStore } from "../zustand/authStore";
 

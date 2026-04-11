@@ -1,4 +1,4 @@
-import { apiRequest } from "../api";
+import { apiRequest } from "./httpClient";
 
 export type DeanOfficeContactPayload = {
   name: string;

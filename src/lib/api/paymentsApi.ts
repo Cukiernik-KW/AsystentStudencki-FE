@@ -1,4 +1,4 @@
-import { ApiError, apiRequest } from "../api";
+import { ApiError, apiRequest } from "./httpClient";
 import type { FeeType } from "../payments";
 
 type CheckoutSessionPayload = {
