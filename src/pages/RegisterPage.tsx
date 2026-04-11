@@ -11,6 +11,7 @@ type BackendErrorPayload = {
   error?: unknown;
   detail?: unknown;
   errors?: {
+    formErrors?: unknown;
     fieldErrors?: Record<string, unknown>;
   };
   fieldErrors?: Record<string, unknown>;
@@ -35,6 +36,10 @@ const getFirstText = (value: unknown): string | undefined => {
   return undefined;
 };
 
+const getFieldError = (fieldErrors: Record<string, unknown> | undefined, fieldName: string) => {
+  return getFirstText(fieldErrors?.[fieldName]);
+};
+
 const getFirstFieldError = (fieldErrors?: Record<string, unknown>) => {
   if (!fieldErrors) {
     return undefined;
@@ -54,13 +59,18 @@ const getFirstFieldError = (fieldErrors?: Record<string, unknown>) => {
 const getErrorMessage = (error: unknown) => {
   if (error instanceof ApiError) {
     const data = error.data as BackendErrorPayload | undefined;
+    const nestedFieldErrors = data?.errors?.fieldErrors;
+    const directFieldErrors = data?.fieldErrors;
+    const passwordError =
+      getFieldError(nestedFieldErrors, "password") || getFieldError(directFieldErrors, "password");
     const firstFieldError =
-      getFirstFieldError(data?.errors?.fieldErrors) || getFirstFieldError(data?.fieldErrors);
+      getFirstFieldError(nestedFieldErrors) || getFirstFieldError(directFieldErrors);
+    const formError = getFirstText(data?.errors?.formErrors);
     const backendMessage =
       getFirstText(data?.message) || getFirstText(data?.error) || getFirstText(data?.detail);
 
-    if (firstFieldError || backendMessage) {
-      return firstFieldError || backendMessage;
+    if (passwordError || firstFieldError || formError || backendMessage) {
+      return passwordError || firstFieldError || formError || backendMessage;
     }
 
     if (error.status === 400 || error.status === 422) {
@@ -81,9 +91,11 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const register = useAuthStore((state) => state.register);
   const isAuthLoading = useAuthStore((state) => state.isAuthLoading);
+  const authError = useAuthStore((state) => state.error);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const visibleErrorMessage = errorMessage || authError;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -140,12 +152,12 @@ export default function RegisterPage() {
                 />
               </div>
 
-              {errorMessage ? (
+              {visibleErrorMessage ? (
                 <p
                   className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700"
                   role="alert"
                 >
-                  {errorMessage}
+                  {visibleErrorMessage}
                 </p>
               ) : null}
 
